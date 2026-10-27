@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparativos y Superlativos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="logo">A1</span>
+      <div>
+        <h1>Comparativos y Superlativos</h1>
+        <p class="subtitle">taller · more expensive · the best</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <a class="home-link" href="../../">← Temas</a>
+      <div class="score-pill" id="scorePill" title="Aciertos / intentos de hoy">
+        <span id="scoreOk">0</span> / <span id="scoreTotal">0</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-tab="vocab">📚 Vocabulario</button>
+    <button class="tab" data-tab="form">✏️ Formar</button>
+    <button class="tab" data-tab="rule">🧩 Reglas</button>
+    <button class="tab" data-tab="sentence">💬 Frases</button>
+    <button class="tab" data-tab="quiz">❓ Preguntas</button>
+    <button class="tab" data-tab="progress">📈 Progreso</button>
+  </nav>
+
+  <main>
+    <!-- ============ VOCABULARIO ============ -->
+    <section class="panel active" id="panel-vocab">
+      <details class="guide">
+        <summary>Guía rápida de reglas</summary>
+        <div class="rules-grid" id="rulesGrid"></div>
+        <div class="tips">
+          <p><strong>Comparativo:</strong> adjetivo + <em>than</em> → <em>She is taller than me.</em></p>
+          <p><strong>Superlativo:</strong> <em>the</em> + adjetivo + <em>in / of</em> → <em>the best in the class · the best day of my life.</em></p>
+          <p><strong>Igualdad:</strong> <em>as ... as</em> → <em>He is as tall as his father.</em></p>
+          <p><strong>Intensificar:</strong> <em>much / a lot / far / a bit / a little</em> + comparativo. Nunca <em>very</em>.</p>
+        </div>
+      </details>
+
+      <div class="filters">
+        <input type="search" id="search" placeholder="Buscar en inglés o español...">
+        <select id="filterRule"><option value="">Todas las reglas</option></select>
+        <select id="filterFreq">
+          <option value="">Toda frecuencia</option>
+          <option value="1">Muy usado</option>
+          <option value="2">Común</option>
+          <option value="3">Menos común</option>
+        </select>
+        <select id="filterCat"><option value="">Todas las categorías</option></select>
+        <select id="sortBy">
+          <option value="freq">Ordenar: más usados</option>
+          <option value="az">Ordenar: A → Z</option>
+          <option value="rule">Ordenar: por regla</option>
+          <option value="errors">Ordenar: mis errores</option>
+        </select>
+        <label class="check"><input type="checkbox" id="hideForms"> Ocultar formas (modo estudio)</label>
+      </div>
+      <p class="count" id="vocabCount"></p>
+      <div class="table-wrap">
+        <table class="vocab">
+          <thead>
+            <tr><th>Adjetivo</th><th>Español</th><th>Comparativo</th><th>Superlativo</th><th>Regla</th><th>Uso</th><th>Mi nivel</th></tr>
+          </thead>
+          <tbody id="vocabBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ FORMAR ============ -->
+    <section class="panel" id="panel-form">
+      <div class="game-card">
+        <div class="game-options">
+          <label>Practicar:
+            <select id="formWhat">
+              <option value="both">Comparativo y superlativo</option>
+              <option value="comp">Solo comparativo</option>
+              <option value="sup">Solo superlativo</option>
+            </select>
+          </label>
+          <label>Regla:
+            <select id="formRule"><option value="">Todas</option></select>
+          </label>
+          <label>Frecuencia:
+            <select id="formFreq">
+              <option value="">Todas</option>
+              <option value="1">Solo muy usados</option>
+              <option value="12">Muy usados y comunes</option>
+            </select>
+          </label>
+        </div>
+        <p class="prompt-label" id="formAsk">Escribe el comparativo de:</p>
+        <div class="big-word" id="formWord">tall</div>
+        <p class="hint" id="formHint">alto</p>
+        <form id="formForm" autocomplete="off">
+          <input type="text" id="formInput" placeholder="Tu respuesta..." spellcheck="false">
+          <button type="submit" class="btn primary" id="formCheck">Comprobar</button>
+          <button type="button" class="btn ghost" id="formSkip">Saltar</button>
+        </form>
+        <div class="feedback" id="formFeedback"></div>
+        <button class="btn primary hidden" id="formNext">Siguiente →</button>
+      </div>
+    </section>
+
+    <!-- ============ REGLAS ============ -->
+    <section class="panel" id="panel-rule">
+      <div class="game-card">
+        <p class="prompt-label">¿Qué regla sigue este adjetivo?</p>
+        <div class="big-word" id="ruleWord">happy</div>
+        <p class="hint" id="ruleHint">feliz</p>
+        <div class="choices" id="ruleChoices"></div>
+        <div class="feedback" id="ruleFeedback"></div>
+        <button class="btn primary hidden" id="ruleNext">Siguiente →</button>
+      </div>
+    </section>
+
+    <!-- ============ FRASES ============ -->
+    <section class="panel" id="panel-sentence">
+      <div class="subtabs">
+        <button class="subtab active" data-sub="fill">Completa la frase</button>
+        <button class="subtab" data-sub="order">Ordena las palabras</button>
+      </div>
+
+      <div class="game-card" id="fillCard">
+        <p class="prompt-label" id="fillLabel">Completa con la forma correcta:</p>
+        <div class="sentence" id="fillSentence"></div>
+        <p class="hint" id="fillHint"></p>
+        <form id="fillForm" autocomplete="off">
+          <input type="text" id="fillInput" placeholder="Escribe el hueco..." spellcheck="false">
+          <button type="submit" class="btn primary">Comprobar</button>
+          <button type="button" class="btn ghost" id="fillSkip">Saltar</button>
+        </form>
+        <div class="feedback" id="fillFeedback"></div>
+        <button class="btn primary hidden" id="fillNext">Siguiente →</button>
+      </div>
+
+      <div class="game-card hidden" id="orderCard">
+        <p class="prompt-label">Toca las palabras en orden para formar la frase:</p>
+        <p class="hint" id="orderHint"></p>
+        <div class="answer-line" id="orderAnswer"></div>
+        <div class="chips" id="orderChips"></div>
+        <div class="row">
+          <button class="btn primary" id="orderCheck">Comprobar</button>
+          <button class="btn ghost" id="orderReset">Reiniciar</button>
+          <button class="btn ghost" id="orderSkip">Saltar</button>
+        </div>
+        <div class="feedback" id="orderFeedback"></div>
+        <button class="btn primary hidden" id="orderNext">Siguiente →</button>
+      </div>
+    </section>
+
+    <!-- ============ PREGUNTAS ============ -->
+    <section class="panel" id="panel-quiz">
+      <div class="game-card">
+        <p class="prompt-label" id="quizCounter">Pregunta 1</p>
+        <div class="sentence" id="quizQ"></div>
+        <div class="choices" id="quizChoices"></div>
+        <div class="feedback" id="quizFeedback"></div>
+        <button class="btn primary hidden" id="quizNext">Siguiente →</button>
+      </div>
+    </section>
+
+    <!-- ============ PROGRESO ============ -->
+    <section class="panel" id="panel-progress">
+      <div class="stats" id="stats"></div>
+      <h3>Reglas: tu precisión</h3>
+      <div class="rule-stats" id="ruleStats"></div>
+      <h3>Palabras que más fallas</h3>
+      <ul class="worst" id="worstList"></ul>
+      <button class="btn danger" id="resetProgress">Borrar todo mi progreso</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>Añade palabras, frases y preguntas editando <code>data.js</code>. El progreso se guarda en este navegador.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

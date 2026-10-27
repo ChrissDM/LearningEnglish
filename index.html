@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning English</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="logo">EN</span>
+      <div>
+        <h1>Learning English</h1>
+        <p class="subtitle">Juegos para practicar gramática y vocabulario</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <h2>Temas</h2>
+    <div class="topics" id="topics"></div>
+    <p class="note">El progreso de cada juego se guarda en el navegador que uses.</p>
+  </main>
+
+  <footer>
+    <p>Para añadir un tema nuevo, crea una carpeta en <code>temas/</code> y agrégalo a la lista en <code>topics.js</code>.</p>
+  </footer>
+
+  <script src="topics.js"></script>
+  <script>
+    document.getElementById("topics").innerHTML = TOPICS.map((t) => `
+      <a class="topic ${t.ready ? "" : "soon"}" href="${t.ready ? t.path : "#"}">
+        <span class="icon">${t.icon}</span>
+        <span class="info">
+          <strong>${t.title}</strong>
+          <small>${t.desc}</small>
+          <em>${t.level}${t.ready ? "" : " · próximamente"}</em>
+        </span>
+      </a>`).join("");
+  </script>
+</body>
+</html>
